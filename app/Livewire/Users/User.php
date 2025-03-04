@@ -47,7 +47,7 @@ class User extends Component implements HasTable, HasForms
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('email')->sortable()->searchable(),
                 TextColumn::make('created_at')->sortable(),
-                TextColumn::make('roles.title')->searchable(),
+                TextColumn::make('roles.title')->badge()->separator(',')->searchable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make()
@@ -56,8 +56,10 @@ class User extends Component implements HasTable, HasForms
                 Tables\Actions\ViewAction::make()
                     ->slideOver()
                     ->infolist([
-                        TextEntry::make('title'),
-                        TextEntry::make('description'),
+                        TextEntry::make('name'),
+                        TextEntry::make('email'),
+                        TextEntry::make('created_at'),
+                        TextEntry::make('roles.title'),
                     ])
                     ->authorize('view',[ ModelsUser::class, ModelsUser::class]),
                 Tables\Actions\EditAction::make()

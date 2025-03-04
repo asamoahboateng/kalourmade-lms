@@ -3,7 +3,8 @@
 @can('viewAny', \App\Models\User::class)
     <x-menu-item title="Users" icon="o-users" link="/users" />
 @endcan
-<x-menu-sub title="Settings" icon="o-cog-6-tooth">
-    <x-menu-item title="Wifi" icon="o-wifi" link="####" />
-    <x-menu-item title="Archives" icon="o-archive-box" link="####" />
+
+<x-menu-sub title="General Settings" icon="o-cog-6-tooth">
+    <x-menu-item title="Subjects" icon="o-wifi" link="/subjects" />
+    <x-menu-item title="Classes" icon="o-archive-box" link="/classes" />
 </x-menu-sub>
