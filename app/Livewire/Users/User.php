@@ -44,13 +44,20 @@ class User extends Component implements HasTable, HasForms
             ->query(ModelsUser::query())
             ->columns([
                 Tables\Columns\TextColumn::make('No.')->rowIndex(),
-                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('name')->sortable()->searchable()
+                    ->url(fn (ModelsUser $user) => route('user-profile.show', [ $user->id ,$user->slug ])),
+//                    ->url(fn (User $user): string => route('user-profile.show', [ 'id' => $user->id ])),
                 TextColumn::make('email')->sortable()->searchable(),
                 TextColumn::make('created_at')->sortable(),
                 TextColumn::make('roles.title')->badge()->separator(',')->searchable(),
+                TextColumn::make('classrooms.title')->badge()->separator(',')->searchable(),
+                TextColumn::make('subjects.title')->badge()->separator(',')->searchable(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make()
+                Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\SelectFilter::make('roles.title')->relationship('roles', 'title')->searchable()->preload(),
+                Tables\Filters\SelectFilter::make('classrooms.title')->relationship('classrooms', 'title')->searchable()->preload(),
+                Tables\Filters\SelectFilter::make('subjects.title')->relationship('subjects', 'title')->searchable()->preload(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
@@ -58,6 +65,8 @@ class User extends Component implements HasTable, HasForms
                     ->infolist([
                         TextEntry::make('name'),
                         TextEntry::make('email'),
+                        TextEntry::make('staff_id'),
+                        TextEntry::make('phone_number'),
                         TextEntry::make('created_at'),
                         TextEntry::make('roles.title'),
                     ])

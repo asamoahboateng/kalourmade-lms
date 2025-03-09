@@ -14,7 +14,7 @@ final class ClassesForm {
             TextInput::make('label')->required(),
             Forms\Components\ColorPicker::make('color')->required(),
             Textarea::make('description')->required(),
-            Forms\Components\Select::make('subjects')->relationship('subjects', 'title')->multiple(),
+            Forms\Components\Select::make('subjects')->relationship('subjects', 'title')->multiple()->preload(),
         ];
     }
 }

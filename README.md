@@ -8,6 +8,11 @@ This is a setting up LMS system
 - - Role-User
 
 - General
--  - Subjects
+- - Subjects
 - - Classes
 - - - Classes-Subject
+- - Academic Year
+- - Academic Term
+
+- Student
+- - Guardian

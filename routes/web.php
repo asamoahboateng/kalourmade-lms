@@ -18,11 +18,17 @@ Route::group(['middleware' => ['auth']], function () {
     // Users
     Route::get('/users', \App\Livewire\Users\User::class)->name('users');
 
+    // User Profile
+    Route::get('/user-profile/{user}/{slug}', \App\Livewire\Users\Profile\UserProfile::class)->name('user-profile.show');
+
     // Subjects
     Route::get('/subjects', \App\Livewire\General\ListSubjects::class)->name('subjects');
 
     //classes
     Route::get('/classes', \App\Livewire\General\ListClasses::class)->name('classes');
+
+    // academic settings
+    Route::get('/academic-settings', [\App\Http\Controllers\General\AcadmicsSettingsController::class , 'academicList'])->name('academic-settings.list');
 });
 
 //Route::get('/roles', function () {

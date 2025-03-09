@@ -15,6 +15,6 @@ class HomeController extends Controller
     public function logout()
     {
         auth()->logout();
-        return redirect()->route('users.login');
+        return redirect()->route('login');
     }
 }

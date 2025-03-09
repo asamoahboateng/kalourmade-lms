@@ -56,7 +56,7 @@
         </x-slot:sidebar>
 
         {{-- The `$slot` goes here --}}
-        <x-slot:content class="bg-white">
+        <x-slot:content class="bg-white p-0 m-0">
             {{ $slot }}
         </x-slot:content>
     </x-main>

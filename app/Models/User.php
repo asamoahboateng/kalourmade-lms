@@ -3,8 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\General\Classes;
+use App\Models\General\Subject;
+use App\Models\Users\ClassesUser;
 use App\Models\Users\Role;
 use App\Models\Users\RoleUser;
+use App\Models\Users\SubjectUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -27,7 +31,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'slug'
+        'slug',
+        'phone_number',
+        'staff_id'
     ];
 
     /**
@@ -58,6 +64,10 @@ class User extends Authenticatable
         parent::boot();
         static::creating(function ($model) {
             $model->slug = Str::slug('user'.$model->name. ' '. strtotime(now()));
+
+            if(!isset($model->staff_id)) {
+                $model->staff_id = 'st'.strtotime(now());
+            }
         });
     }
 
@@ -68,5 +78,15 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class)->using(RoleUser::class);
+    }
+
+    public function classrooms(): BelongsToMany
+    {
+        return  $this->BelongsToMany(Classes::class)->using(ClassesUser::class);
+    }
+
+    public function subjects(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class)->using(SubjectUser::class);
     }
 }
